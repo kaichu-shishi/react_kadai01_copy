@@ -73,17 +73,17 @@ export const Janken = () => {
     const gu = 0, cho = 1, par = 2;
     let gu_count = 0, cho_count = 0, par_count = 0;
     for (let i = 0;  i < computerRemainingCard.length; i++) {
-      if(computerRemainingCard.length[i] == gu){
+      if(computerRemainingCard[i] === gu){
           gu_count++;
       }
     }
     for (let i = 0;  i < computerRemainingCard.length; i++) {
-      if(computerRemainingCard.length[i] == cho){
+      if(computerRemainingCard[i] === cho){
           cho_count++;
       }
     }
     for (let i = 0;  i < computerRemainingCard.length; i++) {
-      if(computerRemainingCard.length[i] == par){
+      if(computerRemainingCard[i] === par){
           par_count++;
       }
     }
@@ -116,9 +116,51 @@ export const Janken = () => {
 	};
 
 
-  // 「自分の手」と「コンピューターの手」を入力して、新しい「じゃんけんの対戦結果」をセットする関数
-  const getMatchResultCount = (myHand, computerHand) => {
-    
+  // 「自分の手」と「コンピューターの手」と「じゃんけんの対戦結果」を入力して、新しい「じゃんけんの対戦結果」をセットする関数
+  const getMatchResultCount = (myHand, computerHand, matchResultCount) => {
+    const hand = ["グー", "チョキ", "パー"];
+    const myIndex = hand.indexOf(myHand);
+    const comIndex = computerHand;
+    if (myIndex === 0) {
+      switch (comIndex) {
+        case 0:
+          matchResultCount.draw++;
+          break;
+        case 1:
+          matchResultCount.playerWin_computerLose++;
+          break;
+        case 2:
+          matchResultCount.playerLose_computerWin++;
+          break;
+      }
+    }
+    if (myIndex === 1) {
+      switch (comIndex) {
+        case 0:
+          matchResultCount.playerLose_computerWin++;
+          break;
+        case 1:
+          matchResultCount.draw++;
+          break;
+        case 2:
+          matchResultCount.playerWin_computerLose++;
+          break;
+      }
+    }
+    if (myIndex === 2) {
+      switch (comIndex) {
+        case 0:
+          matchResultCount.playerWin_computerLose++;
+          break;
+        case 1:
+          matchResultCount.playerLose_computerWin++;
+          break;
+        case 2:
+          matchResultCount.draw++;
+          break;
+      }
+    }
+    setMatchResultCount(matchResultCount);
   };
 
 
@@ -160,6 +202,7 @@ export const Janken = () => {
     getPlayerRemainingCount(myHand, playerRemainingCount);
     getComputerRemainingCount(computerRemainingCard);
     getComputerRemainingCard(computerRemainingCard);
+    getMatchResultCount(myHand, computerHand, matchResultCount);
   }
 
 
