@@ -4,6 +4,8 @@ import { Reset } from "styled-reset";
 
 import { useState } from "react";
 import { ActionButton } from "./components/ActionButton";
+import { JankenButton } from "./components/JankenButton";
+
 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Omikuji } from "./pages/Omikuji";
